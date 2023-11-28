@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro de Ninos</title>
+
+    <!-- Agregamos la referencia a Bootstrap (solo el CSS) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+<h2>Formulario de Registro de Ninos</h2>
+
+<form th:action="@{/saveN}" method="post">
+
+    <!-- Datos del nino -->
+    <div class="form-group">
+        <label for="nombre">Nombre del Nino:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+
+    <div class="form-group">
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
+    </div>
+
+    <div class="form-group">
+        <label for="tipoSangre">Tipo de Sangre:</label>
+        <input type="text" class="form-control" id="tipoSangre" name="tipoSangre" required>
+    </div>
+
+    <div class="form-group">
+        <label for="ciudadNacimiento">Ciudad de Nacimiento:</label>
+        <input type="text" class="form-control" id="ciudadNacimiento" name="ciudadNacimiento" required>
+    </div>
+
+    <div class="form-group">
+        <label for="direccion">Direccion:</label>
+        <input type="text" class="form-control" id="direccion" name="direccion" required>
+    </div>
+
+    <div class="form-group">
+        <label for="eps">EPS:</label>
+        <input type="text" class="form-control" id="eps" name="eps" required>
+    </div>
+
+    <!-- Datos del acudiente -->
+    <div class="form-group">
+        <label for="identificacionAcudiente">Identificación del Acudiente:</label>
+        <input type="text" class="form-control" id="identificacionAcudiente" name="identificacionAcudiente" required>
+    </div>
+
+    <div class="form-group">
+        <label for="telefono">Teléfono del Acudiente:</label>
+        <input type="number" class="form-control" id="telefono" name="telefono" required>
+    </div>
+
+    <!-- Selección del jardín -->
+    <div class="form-group">
+        <label for="jardin">Selecciona un jardín:</label>
+        <select class="form-control" id="jardin" name="jardin" required>
+            <option th:each="jardin : ${listaJardines}" th:value="${jardin.id}" th:text="${jardin.nombre}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+
+</form>
+
+</body>
+</html>

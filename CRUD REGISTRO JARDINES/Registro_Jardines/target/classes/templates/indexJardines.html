@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<title>Modulo registros</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+	<div class = "container mt-4">
+		<a th:href="@{/new}" class="btn btn-primary">Nuevo</a>
+		<table class = "table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>NOMBRE JARDIN</th>
+					<th>DIRECCION</th>
+					<th>ESTADO</th>
+					<th>ACCIONES</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="registros:${registros}">
+					<td th:text="${registros.id}"></td>
+					<td th:text="${registros.nombre}"></td>
+					<td th:text="${registros.direccion}"></td>
+					<td th:text="${registros.estado}"></td>
+					<td>
+					<a th:href="@{/editar/}+${registros.id}" class ="btn btn-warning">Editar</a>
+					<a th:href="@{/eliminar/}+${registros.id}" class ="btn btn-danger">Eliminar</a>
+
+
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="funciones.js"></script>
+</body>
+</html>

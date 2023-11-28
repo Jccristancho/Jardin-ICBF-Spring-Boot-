@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<title>Modulo registros</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+	<div class = "container mt-4">
+		<a th:href="@{/newN}" class="btn btn-primary">Nuevo</a>
+		<table class = "table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>NOMBRE</th>
+					<th>FECHA DE NACIMIENTO</th>
+					<th>TIPO DE SANGRE</th>
+
+					<th>ID ACUDIENTE</th>
+					<th>TELÉFONO</th>
+					<th>DIRECCIÓN</th>
+					<th>EPS</th>
+
+					<th>ACCIONES</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr th:each="registroNino : ${registrosNinos}">
+				<td th:text="${registroNino.registro}"></td>
+				<td th:text="${registroNino.nombre}"></td>
+				<td th:text="${registroNino.fechaNacimiento}"></td>
+				<td th:text="${registroNino.tipoSangre}"></td>
+
+				<td th:text="${registroNino.identificacionAcudiente}"></td>
+				<td th:text="${registroNino.telefono}"></td>
+				<td th:text="${registroNino.direccion}"></td>
+				<td th:text="${registroNino.eps}"></td>
+
+				<td>
+					<a th:href="@{/editarN/{id}(id=${registroNino.registro})}" class="btn btn-warning">Editar</a>
+
+					<a th:href="@{/eliminarN/{id}(id=${registroNino.registro})}" class="btn btn-danger">Eliminar</a>
+					
+
+				</td>
+			</tr>
+			</tbody>
+
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="funciones.js"></script>
+</body>
+</html>
