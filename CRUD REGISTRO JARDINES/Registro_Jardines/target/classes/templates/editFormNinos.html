@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+<h2>Formulario de Edición de Niños</h2>
+
+<form th:action="@{'/editarN/' + ${registro.registro}}" th:object="${registro}" method="post">
+
+    <!-- Campos del formulario para la edición -->
+    <div class="form-group">
+        <label for="nombre">Nombre del Niño:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" th:value="${registro.nombre}" required>
+    </div>
+
+    div class="form-group">
+    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" th:value="${registro.fechaNacimiento}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="tipoSangre">Tipo de Sangre:</label>
+        <input type="text" class="form-control" id="tipoSangre" name="tipoSangre" th:value="${registro.tipoSangre}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="ciudadNacimiento">Ciudad de Nacimiento:</label>
+        <input type="text" class="form-control" id="ciudadNacimiento" name="ciudadNacimiento" th:value="${registro.ciudadNacimiento}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="direccion">Direccion:</label>
+        <input type="text" class="form-control" id="direccion" name="direccion" th:value="${registro.direccion}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="eps">EPS:</label>
+        <input type="text" class="form-control" id="eps" name="eps" th:value="${registro.eps}" required>
+    </div>
+
+    <!-- Datos del acudiente -->
+    <div class="form-group">
+        <label for="identificacionAcudiente">Identificación del Acudiente:</label>
+        <input type="text" class="form-control" id="identificacionAcudiente" name="identificacionAcudiente" th:value="${registro.identificacionAcudiente}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="telefono">Teléfono del Acudiente:</label>
+        <input type="number" class="form-control" id="telefono" name="telefono" th:value="${registro.telefono}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="jardin">Selecciona un jardín:</label>
+        <select class="form-control" id="jardin" name="jardin" required>
+            <option th:each="jardin : ${listaJardines}" th:value="${jardin.id}" th:text="${jardin.nombre}"
+                    th:selected="${jardin.id eq registro.jardin.id}"></option>
+        </select>
+    </div>
+
+    <!-- Agrega un campo oculto para el id -->
+    <input type="hidden" th:field="*{registro}" />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </div>
+
+</form>
+
+</body>
+</html>

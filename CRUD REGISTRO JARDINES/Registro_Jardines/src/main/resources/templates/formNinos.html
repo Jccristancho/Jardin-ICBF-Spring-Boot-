@@ -13,7 +13,7 @@
 
 <h2>Formulario de Registro de Ninos</h2>
 
-<form th:action="@{/saveN}" method="post">
+<form th:action="@{/saveN}" th:object="${registro}" method="post">
 
     <!-- Datos del nino -->
     <div class="form-group">

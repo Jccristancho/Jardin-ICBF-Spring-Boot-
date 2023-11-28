@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+<h2>Formulario de Edición de Jardines</h2>
+
+<form th:action="@{'/editar/' + ${registros.id}}" th:object="${registros}" method="post">
+
+    <div class="form-group">
+        <label>NOMBRE JARDIN</label>
+        <input th:field="*{nombre}" type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>DIRECCION</label>
+        <input th:field="*{direccion}" type="text" class="form-control" />
+    </div>
+
+
+
+    <div class="form-group">
+        <label>ESTADO</label>
+        <div class="form-check">
+            <input th:field="*{Estado}" type="radio" class="form-check-input" id="estado-A" value="Activo">
+            <label class="form-check-label" for="estado-A">Activo</label>
+        </div>
+        <div class="form-check">
+            <input th:field="*{Estado}" type="radio" class="form-check-input" id="estado-I" value="Inactivo">
+            <label class="form-check-label" for="estado-I">Inactivo</label>
+        </div>
+    </div>
+
+    <!-- Agrega un campo oculto para el id -->
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </div>
+
+</form>
+
+</body>
+</html>

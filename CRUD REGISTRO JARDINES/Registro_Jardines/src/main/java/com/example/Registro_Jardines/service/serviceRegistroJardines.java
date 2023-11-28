@@ -30,12 +30,12 @@ public class serviceRegistroJardines implements IinventarioServiceRegistrosJardi
 
 	@Override
 	public int save(registrosJardines p) {
-		int res=0;
-		registrosJardines registros=data.save(p);
-		if(!registros.equals(null)) {
-			res=1;
+		int res = 0;
+		registrosJardines registros = data.save(p);
+		if (registros != null) {
+			res = 1;
 		}
-		return 0;
+		return res;  // Devuelve la variable res en lugar de 0
 	}
 
 
@@ -44,6 +44,24 @@ public class serviceRegistroJardines implements IinventarioServiceRegistrosJardi
 	public void delete(int id) {
 		data.deleteById(id);
 		
+	}
+
+	@Override
+	public void editar(registrosJardines p) {
+		Optional<registrosJardines> registroExistente = data.findById(p.getId());
+
+		if (registroExistente.isPresent()) {
+			// Actualizar solo si el registro existe
+			registrosJardines registros = registroExistente.get();
+			registros.setNombre(p.getNombre());
+			registros.setDireccion(p.getDireccion());
+			registros.setEstado(p.getEstado());
+
+
+
+			data.save(registros);
+		}
+		// Si el registro no existe
 	}
 
 }

@@ -40,36 +40,57 @@ public class controladorNinos {
 
 	@PostMapping("/saveN")
 	public String guardarRegistroNino(@Valid registrosNinos registroNino) {
-		if (registroNino.getRegistro() > 0) {
-			// Es una edición
-			registrosNinosService.editarN(registroNino);
-		} else {
-			// Es un nuevo registro
+
 			registrosNinosService.saveN(registroNino);
-		}
+
 		return "redirect:/registrar_ninos";
 	}
 
 
 
 	@GetMapping("/editarN/{id}")
-	public String editar(@PathVariable int id, Model model) {
-		Optional<registrosNinos> registro = registrosNinosService.listar_ninosId(id);
+	public String editarGet(@PathVariable int id, Model model) {
+		Optional<registrosNinos> optionalRegistro = registrosNinosService.listar_ninosId(id);
 
-		// Verifica si el registro existe antes de agregarlo al modelo
-		if (registro.isPresent()) {
-			model.addAttribute("registro", registro.get());
+		if (optionalRegistro.isPresent()) {
+			registrosNinos registro = optionalRegistro.get();
+			System.out.println("Registro a editar: " + registro.toString()); // Verifica en la consola
+			model.addAttribute("registro", registro);
+		} else {
+
 		}
 
 		List<registrosJardines> listaJardines = registrosJardinesService.listar_registros();
 		model.addAttribute("listaJardines", listaJardines);
+		return "editFormNinos";
+	}
 
-		return "formNinos";
+	@PostMapping("/editarN/{id}")
+	public String editarPost(@PathVariable int id, @ModelAttribute("registro") registrosNinos registroActualizado) {
+		Optional<registrosNinos> optionalRegistro = registrosNinosService.listar_ninosId(id);
+
+		if (optionalRegistro.isPresent()) {
+			registrosNinos registroExistente = optionalRegistro.get();
+
+			// Actualiza los campos necesarios con los valores del registroActualizado
+			registroExistente.setNombre(registroActualizado.getNombre());
+			// Actualiza otros campos según sea necesario
+
+			// Guarda el registro actualizado en la base de datos
+			registrosNinosService.saveN(registroExistente);
+
+			// Redirige a la página que desees después de la actualización
+			return "redirect:/registrar_ninos";
+		} else {
+			// Manejo del caso en que no se encuentra el registro
+			// Puedes redirigir a una página de error o mostrar un mensaje adecuado
+			return "redirect:/ruta-de-error";
+		}
 	}
 	@GetMapping("/eliminarN/{id}")
 	public String delete(Model model, @PathVariable int id) {
-	    registrosNinosService.deleteN(id);
-	    return "redirect:/registrar_ninos";
+		registrosNinosService.deleteN(id);
+		return "redirect:/registrar_ninos";
 	}
-}
+	}
 

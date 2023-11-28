@@ -9,4 +9,6 @@ public interface IinventarioServiceRegistrosJardines {
 	public Optional<registrosJardines>listar_registrosId(int id);
 	public int save(registrosJardines p);
 	public void delete(int id);
+
+	void editar(registrosJardines p);
 }
