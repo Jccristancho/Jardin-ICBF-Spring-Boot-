@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Evaluación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Evaluación para el niño (ID: <span th:text="${ninoId}"></span>): <span th:text="${nino.nombre}"></span></h2>
+
+    <form th:action="@{/evaluacion/guardar}" th:object="${evaluacion}" method="post">
+
+        <!-- Registro ID -->
+        <div class="mb-3">
+            <label for="registroId" class="form-label">Registro ID:</label>
+            <div class="form-text">Escribe el ID del niño, que está en la parte superior del formulario.</div>
+            <input type="text" id="registroId" th:value="${ninoId}" th:field="*{datosNinos.registro}" class="form-control" placeholder="Escribe el ID del niño, que está en la parte superior del formulario" />
+
+        </div>
+
+        <!-- Nivel -->
+        <div class="mb-3">
+            <label for="nivel" class="form-label">Nivel:</label>
+            <input type="text" id="nivel" th:field="*{nivel}" class="form-control" />
+        </div>
+
+        <!-- Nota -->
+        <div class="mb-3">
+            <label for="nota" class="form-label">Nota:</label>
+            <input type="text" id="nota" th:field="*{notas}" class="form-control" />
+        </div>
+
+        <!-- Descripción -->
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <div class="form-text">Escriba la materia y una breve descripcion de la nota. </div>
+            <textarea id="descripcion" th:field="*{descripcion}" class="form-control"></textarea>
+        </div>
+
+        <!-- Asistencia -->
+        <div class="mb-3">
+            <label class="form-label">Asistencia:</label><br>
+            <input type="radio" id="asistioRadio" th:field="*{asistencia}" value="Asistió" />
+            <label for="asistioRadio">Asistió</label>
+
+            <input type="radio" id="noAsistioRadio" th:field="*{asistencia}" value="No asistió" />
+            <label for="noAsistioRadio">No asistió</label>
+        </div>
+
+        <!-- Fecha -->
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input type="date" id="fecha" th:field="*{fecha}" class="form-control" />
+        </div>
+
+        <!-- Botón de enviar -->
+        <button type="submit" class="btn btn-primary">Guardar Evaluación</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</body>
+</html>

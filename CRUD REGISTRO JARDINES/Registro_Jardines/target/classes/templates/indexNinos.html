@@ -20,7 +20,7 @@
 					<th>ID ACUDIENTE</th>
 					<th>TELÉFONO</th>
 					<th>DIRECCIÓN</th>
-					<th>EPS</th>
+
 
 					<th>ACCIONES</th>
 				</tr>
@@ -35,14 +35,16 @@
 				<td th:text="${registroNino.identificacionAcudiente}"></td>
 				<td th:text="${registroNino.telefono}"></td>
 				<td th:text="${registroNino.direccion}"></td>
-				<td th:text="${registroNino.eps}"></td>
+
+
+
 
 				<td>
 					<a th:href="@{/editarN/{id}(id=${registroNino.registro})}" class="btn btn-warning">Editar</a>
 
 					<a th:href="@{/eliminarN/{id}(id=${registroNino.registro})}" class="btn btn-danger">Eliminar</a>
-					
 
+					<a th:href="@{/evaluacion/formulario/{id}(id=${registroNino.registro})}" class="btn btn-info">Evaluar</a>
 				</td>
 			</tr>
 			</tbody>
