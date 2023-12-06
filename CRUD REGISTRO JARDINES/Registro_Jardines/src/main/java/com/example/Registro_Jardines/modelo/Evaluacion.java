@@ -17,12 +17,11 @@ public class Evaluacion {
     @JoinColumn(name = "registroID", nullable = false)
     private registrosNinos datosNinos;
 
-
-
     private String nivel;
     private int notas;
     private String descripcion;
     private String asistencia;
+    @Column(name = "Fecha_entrega")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
 
