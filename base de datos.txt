@@ -1,8 +1,5 @@
-﻿CREATE DATABASE Asociacion_ICBF;
+create  DATABASE Asociacion_ICBF;
 USE Asociacion_ICBF;
-
-
-
 
 
 
@@ -13,42 +10,43 @@ CREATE TABLE Registro_Jardin (
     Estado VARCHAR(45) NOT NULL
 );
 
+CREATE TABLE Usuarios (
+    ID_usuario int PRIMARY KEY,
+    Nombre_usuario varchar(45) NOT NULL,
+    Contraseña varchar(45) NOT NULL,
+    email varchar(45) NOT NULL,
+    Rol ENUM('administrador', 'madre_comunitaria', 'acudiente', 'registrador') NOT NULL
+);
 
 CREATE TABLE Datos_Ninos(
 Registro int PRIMARY KEY auto_increment null,
-Identificacion_acudiente int Unique not null,
 Nombre_n varchar(45) not null,
 Fecha_nacimiento date not null,
 Tipo_sangre varchar(45) not null,
 Ciudad_nacimiento varchar(45) not null,
+Identificacion_acudiente int not null,
 Telefono int not null,
 Direccion_n varchar(45) not null,
 EPS varchar(45) not null,
 Identificador_Jardin int(11) not null,
+ID_usuario int DEFAULT 3, 
+FOREIGN KEY (ID_usuario) REFERENCES Usuarios(ID_usuario),
 FOREIGN KEY (Identificador_Jardin) REFERENCES Registro_Jardin(Identificador_Jardin)
 );
 
 
-CREATE TABLE Usuarios (
-    ID_usuario int PRIMARY KEY AUTO_INCREMENT,
-    Nombre_usuario varchar(45) NOT NULL,
-    Contraseña varchar(45) NOT NULL,
-    email varchar(45) NOT NULL,
-    identificacion_acudiente int NOT NULL,
-    Rol ENUM('administrador', 'madre_comunitaria', 'acudiente', 'registrador') NOT NULL,
-    FOREIGN KEY (identificacion_acudiente) REFERENCES Datos_Ninos(Identificacion_acudiente)
-);
+
 
 
 CREATE TABLE Registro_Acudientes(
-Nombre_a varchar(45) PRIMARY KEY not null,
+Nombre_a varchar(45) PRIMARY KEY  not null,
 Cedula_a int(11) not null,
 Telefono_a int(11) not null,
 Celular_a int(11) not null,
 Direccion_a varchar(45) not null,
 Correo_a varchar(45) not null,
-ID_usuario int not null,
-    FOREIGN KEY (ID_usuario) REFERENCES Usuarios(ID_usuario)
+ID_usuario int DEFAULT 3,
+FOREIGN KEY (ID_usuario) REFERENCES Usuarios(ID_usuario)
 );
 
 
@@ -57,12 +55,12 @@ ID_usuario int not null,
 
 
 CREATE TABLE Registro_MadresComunitaras(
-id_madre_comunitaria int(11) PRIMARY KEY not null,
+id_madre_comunitaria int(11) PRIMARY KEY AUTO_INCREMENT not null,
 Nombre_m varchar(45) not null,
-Telefono_m int(11) not null,
+Telefono_m int(10)not null,
 Direccion_m varchar(45) not null,
 Fecha_nacimiento_m date not null,
-ID_usuario int not null,
+ID_usuario int DEFAULT 2,
 FOREIGN KEY (ID_usuario) REFERENCES Usuarios(ID_usuario)
 );
 
@@ -86,15 +84,65 @@ Fecha_entrega date not null
 
 
 
-
 INSERT INTO Registro_Jardin (Identificador_Jardin, Nombre_jardin, Direccion_j, Estado) VALUES
-(1, 'Jardín Infantil Alegre', 'Calle 123, Barrio Feliz', 'Activo'),
-(2, 'Jardín de Colores', 'Avenida 456, Barrio Jovial', 'Inactivo'),
-(3, 'Jardín de Juegos Divertidos', 'Carrera 789, Barrio Alegre', 'Activo'),
-(4, 'Jardín Educativo Sonrisas', 'Calle 321, Barrio Contento', 'Activo'),
-(5, 'Jardín Pequeños Exploradores', 'Avenida 654, Barrio Encantado', 'Inactivo'),
-(6, 'Jardín Risueño', 'Calle 987, Barrio Feliz', 'Activo'),
-(7, 'Jardín de Aprendizaje Creativo', 'Carrera 234, Barrio Divertido', 'Inactivo'),
-(8, 'Jardín Felicidad Infantil', 'Avenida 567, Barrio Encantador', 'Activo'),
-(9, 'Jardín de Sueños Felices', 'Calle 876, Barrio Jocoso', 'Activo'),
-(10, 'Jardín del Conocimiento', 'Carrera 543, Barrio Encantado', 'Inactivo');
+(1, 'Jardín Infantil Alegre', 'Calle 123 Barrio Feliz', 'Activo'),
+(2, 'Jardín de Colores', 'Avenida 456 Barrio Jovial', 'Inactivo'),
+(3, 'Jardín de Juegos Divertidos', 'Carrera 789 Barrio Alegre', 'Activo'),
+(4, 'Jardín Educativo Sonrisas', 'Calle 321  Barrio Contento', 'Activo'),
+(5, 'Jardín Pequeños Exploradores', 'Avenida 654 Barrio Encantado', 'Inactivo'),
+(6, 'Jardín Risueño', 'Calle 987 Barrio Feliz', 'Activo'),
+(7, 'Jardín de Aprendizaje Creativo', 'Carrera 234 Barrio Divertido', 'Inactivo'),
+(8, 'Jardín Felicidad Infantil', 'Avenida 567 Barrio Encantador', 'Activo'),
+(9, 'Jardín de Sueños Felices', 'Calle 876 Barrio Jocoso', 'Activo'),
+(10, 'Jardín del Conocimiento', 'Carrera 543 Barrio Encantado', 'Inactivo');
+
+
+-- Insertar usuario administrador
+INSERT INTO Usuarios (ID_usuario, Nombre_usuario, Contraseña, email, Rol) 
+VALUES (1, 'Admin1', 'admin123', 'admin1@example.com', 'administrador');
+
+-- Insertar madre comunitaria
+INSERT INTO Usuarios (ID_usuario, Nombre_usuario, Contraseña, email, Rol) 
+VALUES (2, 'Madre1', 'madre123', 'madre1@example.com', 'madre_comunitaria');
+
+-- Insertar acudiente
+INSERT INTO Usuarios (ID_usuario, Nombre_usuario, Contraseña, email, Rol) 
+VALUES (3, 'Acudiente1', 'acudiente123', 'acudiente1@example.com', 'acudiente');
+
+-- Insertar registrador
+INSERT INTO Usuarios (ID_usuario, Nombre_usuario, Contraseña, email, Rol) 
+VALUES (4, 'Registrador1', 'registrador123', 'registrador1@example.com', 'registrador');
+
+-- Insertar otro usuario administrador
+INSERT INTO Usuarios (ID_usuario, Nombre_usuario, Contraseña, email, Rol) 
+VALUES (5, 'Admin2', 'admin456', 'admin2@example.com', 'administrador');
+
+-- Insertar datos de un niño
+INSERT INTO Datos_Ninos (Nombre_n, Fecha_nacimiento, Tipo_sangre, Ciudad_nacimiento, Identificacion_acudiente, Telefono, Direccion_n, EPS, Identificador_Jardin, ID_usuario)
+VALUES ('Niño1', '2020-01-15', 'A+', 'Ciudad1', 123456789, 987654321, 'Calle 123', 'EPS1', 1, 2);
+
+-- Insertar datos de otro niño
+INSERT INTO Datos_Ninos (Nombre_n, Fecha_nacimiento, Tipo_sangre, Ciudad_nacimiento, Identificacion_acudiente, Telefono, Direccion_n, EPS, Identificador_Jardin, ID_usuario)
+VALUES ('Niño2', '2019-05-20', 'B-', 'Ciudad2', 987654321, 123456789, 'Avenida 456', 'EPS2', 2, 3);
+
+-- Insertar datos de un tercer niño
+INSERT INTO Datos_Ninos (Nombre_n, Fecha_nacimiento, Tipo_sangre, Ciudad_nacimiento, Identificacion_acudiente, Telefono, Direccion_n, EPS, Identificador_Jardin, ID_usuario)
+VALUES ('Niño3', '2018-09-10', 'O+', 'Ciudad3', 555555555, 999999999, 'Carrera 789', 'EPS3', 3, 4);
+
+-- Insertar datos de un cuarto niñoregistro_acudientes
+INSERT INTO Datos_Ninos (Nombre_n, Fecha_nacimiento, Tipo_sangre, Ciudad_nacimiento, Identificacion_acudiente, Telefono, Direccion_n, EPS, Identificador_Jardin, ID_usuario)
+VALUES ('Niño4', '2021-03-25', 'AB+', 'Ciudad4', 111111111, 222222222, 'Callejon 012', 'EPS4', 4, 5);
+
+-- Insertar datos de un quinto niño
+INSERT INTO Datos_Ninos (Nombre_n, Fecha_nacimiento, Tipo_sangre, Ciudad_nacimiento, Identificacion_acudiente, Telefono, Direccion_n, EPS, Identificador_Jardin, ID_usuario)
+VALUES ('Niño5', '2022-07-08', 'A-', 'Ciudad5', 999999999, 555555555, 'Plaza 567', 'EPS5', 5, 1);
+
+
+-- Inserta un usuario con ID de usuario 2 asociado al registro en Datos_Ninos
+INSERT INTO Usuarios (ID_usuario, Nombre_usuario, Contraseña, email, identificacion_acudiente, Rol) VALUES
+(2,'UsuarioEjemplo', 'ContraseñaEjemplo', 'correo@ejemplo.com', 123456789, 'madre_comunitaria'),
+(3,'UsuarioEjemplo2', 'ContraseñaEjemplo2', 'correo@ejemplo.com2', 097487543, 'acudiente');
+
+INSERT INTO Registro_MadresComunitaras (Nombre_m, Telefono_m, Direccion_m, Fecha_nacimiento_m, ID_usuario)
+VALUES ('NombreEjemplo', 1234567890, 'DireccionEjemplo', '2000-01-01', 2);
+
